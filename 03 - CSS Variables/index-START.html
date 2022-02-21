@@ -45,6 +45,31 @@
   </style>
 
   <script>
+    const spaceInput = document.querySelector("#spacing");
+    const blurInput = document.querySelector("#blur");
+    const colorInput = document.querySelector("#base");
+
+    const title = document.querySelector(".hl");
+    const img = document.querySelector("img");
+
+    img.style.padding = `${spaceInput.value}px`;
+    img.style.backgroundColor = colorInput.value;
+    img.style.filter = `blur(${blurInput.value}px)`;
+    title.style.color = colorInput.value;
+
+    const handleUpdate = () => {
+      img.style.setProperty("padding", `${spaceInput.value}px`);
+      img.style.setProperty("background-color", `${colorInput.value}`);
+      img.style.setProperty("filter", `blur(${blurInput.value}px)`);
+      title.style.setProperty("color", `${colorInput.value}`);
+    }
+    
+    spaceInput.addEventListener('mousemove', handleUpdate);
+    spaceInput.addEventListener('change', handleUpdate);
+    blurInput.addEventListener('mousemove', handleUpdate);
+    blurInput.addEventListener('change', handleUpdate);
+    colorInput.addEventListener('mousemove', handleUpdate);
+    colorInput.addEventListener('change', handleUpdate);
   </script>
 
 </body>
