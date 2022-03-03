@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+  <script src="https://kit.fontawesome.com/46239034b8.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div>
+    <label>Color: </label>
+    <input type="color">
+    <img src="eraser-solid.svg">
+  </div>
+  <canvas id="draw" width="800" height="800"></canvas>
+<script>
+  const canvas = document.querySelector('#draw');
+  const colorPicker = document.querySelector("input")
+  const eraser = document.querySelector("img");
+  const body = document.querySelector("body");
+  const ctx = canvas.getContext('2d');
+  
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  ctx.strokeStyle = colorPicker.value;
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.lineWidth = 50;
+
+  let isDrawing = false;
+  let lastX = 0;
+  let lastY = 0;
+  let isErasing = false;
+
+  function draw(e) {
+    if (!isDrawing) return;
+    ctx.beginPath();
+    // start from
+    ctx.moveTo(lastX, lastY);
+    // go to
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+  }
+
+  canvas.addEventListener('mousedown', (e) => {
+    isDrawing = true;
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+  });
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseup', () => isDrawing = false);
+  canvas.addEventListener('mouseout', () => isDrawing = false);
+
+  function colorUpdate(e) {
+    isErasing = false;
+    ctx.strokeStyle = e.target.value;
+  }
+  colorPicker.addEventListener('input', colorUpdate);
+
+  function erasing(e) {
+    isErasing = true;
+    //canvas.style.cursor = `url(eraser-solid.svg)`;
+    canvas.style.setProperty('cursor', `url(eraser-solid.svg)`)
+    ctx.strokeStyle = '#fff';
+  }
+  eraser.addEventListener('click', erasing);
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+  div {
+    padding: 30px;
+    background-color: skyblue;
+    text-align: center;
+    justify-content: center;
+  }
+  label {
+    font-size: 30px;
+  }
+  input {
+    width: 100px;
+    height: 30px;
+  }
+  img {
+    width: 30px;
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+
+  img:hover {
+    cursor: pointer;
+  }
+</style>
+
+</body>
+</html>
