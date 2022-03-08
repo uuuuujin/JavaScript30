@@ -18,29 +18,73 @@
     }
 
     // Regular
+    console.log("우아앙")
 
     // Interpolated
+    console.log("처음 써본다!! %s", "🌝")
+    const sun = "🌞";
+    console.log(`해다 해!! ${sun}`)
 
     // Styled
+    // 콘솔 메시지를 꾸밀 수 있다니..!
+    console.log('%c 멋쟁이 😎', 'font-size: 20px; color: red')
 
     // warning!
+    console.warn('경고입니다요')
 
     // Error :|
+    console.error("에에에에에러어어어어어어")
 
     // Info
+    console.info("이거슨 정보메시지")
 
     // Testing
+    // false일 때만 메시지 뜸.
+    console.assert(1===2, "That's wrong!!!")
+    const p = document.querySelector('p');
+
+    console.assert(p.classList.contains('ouch'), 'p태그는 ouch 클래스를 갖고 있지 않아요.');
 
     // clearing
+    console.clear();
 
     // Viewing DOM Elements
+    console.log(p);
+    //요소를 JSON과 같은 트리 구조로 출력함
+    console.dir(p); 
 
     // Grouping together
+    dogs.forEach(dog => {
+      console.group(`${dog.name}`);
+      // console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+    });
 
     // counting
+    // 레이블 명시 안하면 default로 나타남
+    console.count('a');
+    console.count('a');
+    console.count('a');
+    console.count('b');
+    console.count('b');
+    console.count('b');
+    console.count('b');
+    console.count();
+    console.count();
 
     // timing
-
+    // label = 새 타이머에게 설정할 이름으로 타이머를 식별함
+    //  같은 이름으로 console.timeEnd()를 호출하면 타이머가 중단되고 콘솔에 시간을 출력함
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
   </script>
 </body>
 </html>
